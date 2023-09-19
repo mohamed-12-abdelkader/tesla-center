@@ -1,0 +1,44 @@
+import React from "react";
+import { FaFacebook, FaYoutube } from "react-icons/fa";
+const Footer = () => {
+  return (
+    <div
+      style={{
+        height: "250px",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#0079d9",
+        marginTop: "50px",
+      }}
+    >
+      <div>
+        <h1 style={{ fontSize: "25px" }}>
+          تم صنع هذة المنصة بهدف تهيئة الطالب لجميع جوانب الثانوية العامة وما
+          بعدها{" "}
+        </h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <a>
+            <FaFacebook
+              style={{ margin: "10px", fontSize: "30px", color: "white" }}
+            />
+          </a>
+          <a>
+            <FaYoutube
+              style={{ margin: "10px", fontSize: "30px", color: "red" }}
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Footer;
