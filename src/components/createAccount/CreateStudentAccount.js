@@ -41,10 +41,9 @@ const CreateStudentAccount = ({
         <form onSubmit={handleSubmit} style={{ width: "90%", margin: "auto" }}>
           {/* حقل الباسورد */}
           <div className="form">
-            <label>الاسم الثلاثي</label>
             <TextField
               id="filled-basic"
-              label="Filled"
+              label="الاسم ثلاثى"
               variant="filled"
               type="text"
               name="fullName"
@@ -53,8 +52,10 @@ const CreateStudentAccount = ({
             />
           </div>
           <div className="form">
-            <label>البريد الإلكتروني</label>
-            <input
+            <TextField
+              id="filled-basic"
+              label="البريد الالكترونى "
+              variant="filled"
               type="email"
               name="email"
               value={studentsData.email}
@@ -62,8 +63,10 @@ const CreateStudentAccount = ({
             />
           </div>
           <div className="form">
-            <label>كلمة المرور</label>
-            <input
+            <TextField
+              id="filled-basic"
+              label="كلمة المرور"
+              variant="filled"
               type={showPassword ? "text" : "password"}
               name="password"
               value={studentsData.password}
@@ -72,8 +75,10 @@ const CreateStudentAccount = ({
           </div>
           {/* حقل تأكيد كلمة المرور */}
           <div className="form">
-            <label>تأكيد كلمة المرور</label>
-            <input
+            <TextField
+              id="filled-basic"
+              label="تاكيد كلمة المرور"
+              variant="filled"
               type={showPassword ? "text" : "password"}
               name="confirmPassword"
               value={studentsData.confirmPassword}
@@ -82,8 +87,10 @@ const CreateStudentAccount = ({
           </div>
           {/* حقل رقم الهاتف */}
           <div className="form">
-            <label>رقم الهاتف</label>
-            <input
+            <TextField
+              id="filled-basic"
+              label="رقم الهاتف"
+              variant="filled"
               type="number"
               name="phoneNumber"
               value={studentsData.phoneNumber}
@@ -93,16 +100,20 @@ const CreateStudentAccount = ({
           </div>
           {/* باقي النموذج */}
           <div className="form">
-            <label>الصف الدراسي</label>
-            <select
+            <TextField
+              id="filled-select-currency"
+              select
+              label="الصف الدراسى "
+              defaultValue="EUR"
+              variant="filled"
               name="selectedClass"
               value={studentsData.selectedClass}
               onChange={handleInputChange}
             >
-              <option value="First">الأول</option>
-              <option value="Second">الثاني</option>
-              <option value="Third">الثالث</option>
-            </select>
+              <option value="First"> الأول الثانوى</option>
+              <option value="Second">الثاني الثانوى</option>
+              <option value="Third">الثالث الثانوى </option>
+            </TextField>
           </div>
           <div style={{ margin: "20px 0" }}>
             <Button block type="submit" onClick={handleSubmit}>

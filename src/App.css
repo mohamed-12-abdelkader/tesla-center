@@ -108,8 +108,10 @@ h6 {
 
 input {
   height: 40px;
+  margin-top: 10px;
 }
-label {
+input label {
   font-size: 13px;
   margin: 5px 0;
+  text-align: center;
 }
