@@ -5,7 +5,9 @@ import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { FaUser, FaBell } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import HomeIcon from "@mui/icons-material/Home";
 function Navigationbar({
   showSignupPage,
   name,
@@ -13,12 +15,14 @@ function Navigationbar({
   setOpen,
   open,
   handleReset,
+  openNot,
+  setOpenNot,
 }) {
-  const [firstName, setFirstName] = useState(""); // قم بتعريف firstName
-  const [secondName, setSecondName] = useState(""); // قم بتعريف secondName
-
   function showCardClick() {
     setOpen(true);
+  }
+  function showNotCard() {
+    setOpenNot(true);
   }
 
   return (
@@ -35,7 +39,7 @@ function Navigationbar({
         <Navbar.Collapse id="navbarScroll" style={{ justifyContent: "end" }}>
           {showSignupPage ? (
             <div style={{ marginRight: "20px", display: "flex" }}>
-              <Button icone={true}>
+              <Button icone={true} onClick={showNotCard}>
                 <FaBell />
               </Button>
               <Button icone={true} onClick={showCardClick}>
@@ -68,17 +72,21 @@ function Navigationbar({
             }}
           >
             <div style={{ display: "grid" }}>
-              <span
-                className="font"
-                style={{
-                  margin: "10px",
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  display: "flex",
-                }}
-              >
-                اهلا:<h6 style={{ margin: "5px" }}>{name}</h6>
-              </span>
+              <Link to="/profile/myprofaile" style={{ textDecoration: "none" }}>
+                <span
+                  className="link"
+                  style={{
+                    margin: "10px",
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    display: "flex",
+                    width: "90%",
+                  }}
+                >
+                  {" "}
+                  <h6 style={{ margin: "5px" }}> اهلا:{name}</h6>
+                </span>
+              </Link>
               <span
                 className="font profile"
                 style={{
@@ -88,22 +96,60 @@ function Navigationbar({
                 }}
               >
                 <Link
+                  className="link"
                   to="/profile/myprofaile"
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: "none", display: "flex" }}
                 >
-                  my profile
+                  <AccountCircleIcon />
+                  <h5 style={{ color: "rgb(72, 68, 68)" }}>حسابى </h5>
+                </Link>
+                <Link
+                  className="link"
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    marginTop: "10px",
+                  }}
+                >
+                  <HomeIcon />
+                  <h6 style={{ color: "rgb(72, 68, 68)" }}>
+                    {" "}
+                    الصفحة الرئيسية{" "}
+                  </h6>
                 </Link>
               </span>
               <span>
                 <h5
-                  className="font"
+                  className="link"
                   style={{ marginLeft: "5px", cursor: "pointer" }}
                   onClick={handleReset}
                 >
-                  <a>تسجيل الخروج</a>
+                  <LogoutIcon style={{ direction: "rtl" }} />
+                  <a style={{ marginRight: "10px" }}>تسجيل الخروج</a>
                 </h5>
               </span>
             </div>
+          </div>
+        ) : null}
+
+        {openNot ? (
+          <div
+            className="card"
+            style={{
+              position: "absolute",
+              right: "8%",
+              padding: "10px",
+              top: "95%",
+              marginRight: "10px",
+              width: "200px",
+              backgroundColor: "#FFF",
+              direction: "rtl",
+              boxShadow: " 0 0 10px rgba(0, 0, 0, 0.3)",
+              height: "40px",
+            }}
+          >
+            <h5> لا يوجد اشعارات ....</h5>
           </div>
         ) : null}
       </Container>

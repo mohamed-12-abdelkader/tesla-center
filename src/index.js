@@ -1,7 +1,7 @@
 // index.js
 import React from "react";
 import ReactDOM from "react-dom";
-import Footer from "./components/footer/Footer";
+import ScrollToTop from "./components/Scroll/ScrollTop";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
@@ -12,7 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <Footer />
+      <ScrollToTop />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

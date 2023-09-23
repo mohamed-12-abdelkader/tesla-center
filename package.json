@@ -19,6 +19,7 @@
     "react-icons": "^4.11.0",
     "react-password-input": "^0.0.7",
     "react-router-dom": "^6.16.0",
+    "react-router-guards": "^1.0.2",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"

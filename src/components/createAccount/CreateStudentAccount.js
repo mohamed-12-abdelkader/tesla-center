@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../ui";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 const CreateStudentAccount = ({
   studentsData,
@@ -88,6 +90,7 @@ const CreateStudentAccount = ({
           {/* حقل رقم الهاتف */}
           <div className="form">
             <TextField
+              className="input"
               id="filled-basic"
               label="رقم الهاتف"
               variant="filled"
@@ -110,9 +113,15 @@ const CreateStudentAccount = ({
               value={studentsData.selectedClass}
               onChange={handleInputChange}
             >
-              <option value="First"> الأول الثانوى</option>
-              <option value="Second">الثاني الثانوى</option>
-              <option value="Third">الثالث الثانوى </option>
+              <MenuItem value="First"> الأول الثانوى</MenuItem>
+              <MenuItem value="Second"> الصف الثانى الثانوى علمى </MenuItem>
+              <MenuItem value="Second-literay">
+                {" "}
+                الصف الثانى الثانوى ادبى{" "}
+              </MenuItem>
+              <MenuItem value="Third-literay">الثالث الثانوى ادبى</MenuItem>
+              <MenuItem value="Third-sciencee"> الثالث الثانوى علوم</MenuItem>
+              <MenuItem value="Third-math"> الثالث الثانوى رياضة </MenuItem>
             </TextField>
           </div>
           <div style={{ margin: "20px 0" }}>

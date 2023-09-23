@@ -3,13 +3,14 @@ import SectionOne from "./SectionOne";
 import SectionTwo from "./SectionTwo";
 import SectionThre from "./SectionThre";
 import SectionFour from "./SectionFour";
-const Home = () => {
+import Classes from "../Classes/Classes";
+const Home = ({ showSignupPage }) => {
   return (
     <div>
       <SectionOne />
       <SectionTwo />
       <SectionThre />
-      <SectionFour />
+      {!showSignupPage ? <SectionFour /> : <Classes />}
     </div>
   );
 };

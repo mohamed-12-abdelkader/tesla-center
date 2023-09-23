@@ -1,15 +1,25 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Navigationbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import CreateStudentAccount from "./components/createAccount/CreateStudentAccount";
 import FirstGrade from "./components/Classes/FirstGrade";
-import SecondGrade from "./components/Classes/SecondGrade";
+import SecondGrade from "./components/Classes/SecondGradeSciences";
 import CreateAccount from "./components/createAccount/CreateAccount";
+import Footer from "./components/footer/Footer";
+import Profail from "./components/my-profail/Profail";
+import SecondGradeliterary from "./components/Classes/SecondGradeliterary";
+import ThirdGradeLiterary from "./components/Classes/ThirdGradeLiterary";
+import ThirdGradeScience from "./components/Classes/ThirdGradeScience";
+import ThirdGradeMathematics from "./components/Classes/ThirdGradeMathematics";
+import Myprofaile from "./components/my-profail/MyProfail";
+import Mycourses from "./components/my-profail/MyCourses";
+import View from "./components/my-profail/View";
+import "./App.css";
+import ScrollToTop from "./components/Scroll/ScrollTop";
+
 function App() {
   const [showSignupPage, setShowSignupPage] = useState(false);
-
   const [studentsData, setStudentsData] = useState({
     fullName: "",
     email: "",
@@ -18,8 +28,11 @@ function App() {
     phoneNumber: "",
     selectedClass: "First",
   });
-
   const [open, setOpen] = useState(false);
+  const [openNot, setOpenNot] = useState(false);
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); // تم تعريف حالة تسجيل الدخول هنا
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedShowSignupPage = localStorage.getItem("showSignupPage");
@@ -32,6 +45,9 @@ function App() {
     if (storedStudentsData !== null) {
       setStudentsData(JSON.parse(storedStudentsData));
     }
+
+    // إعداد حالة إنشاء الحساب بناءً على وجود البيانات في localStorage
+    setIsAccountCreated(!!storedStudentsData);
   }, []);
 
   useEffect(() => {
@@ -50,9 +66,12 @@ function App() {
     });
 
     setShowSignupPage(false);
-
+    setIsAccountCreated(false);
+    setIsUserLoggedIn(false); // إعادة تعيين حالة تسجيل الدخول إلى false
     localStorage.removeItem("showSignupPage");
     localStorage.removeItem("studentsData");
+    // إعادة توجيه المستخدم إلى الصفحة الرئيسية بعد الإعادة
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -62,20 +81,31 @@ function App() {
       alert("الباسورد ليس متطابق");
     } else {
       if (studentsData.selectedClass === "First") {
-        window.location.href = "/firstGrade";
+        navigate("/firstGrade");
       } else if (studentsData.selectedClass === "Second") {
-        window.location.href = "/secondGrade";
+        navigate("/secondGrade");
+      } else if (studentsData.selectedClass === "Second-literay") {
+        navigate("/secondGradeliterary");
+      } else if (studentsData.selectedClass === "Third-literay") {
+        navigate("/thirdGradeLiterary");
+      } else if (studentsData.selectedClass === "Third-sciencee") {
+        navigate("/thirdGradeScience");
+      } else if (studentsData.selectedClass === "Third-math") {
+        navigate("/thirdGradeMathematics");
       }
       setShowSignupPage(true);
+      setIsAccountCreated(true);
+      setIsUserLoggedIn(true); // تم تعيين حالة تسجيل الدخول إلى true بعد تسجيل الحساب
     }
   };
 
   const handleClose = () => {
     setOpen(false);
+    setOpenNot(false);
   };
 
   const handleAppClick = () => {
-    if (open) {
+    if (open || openNot) {
       handleClose();
     }
   };
@@ -89,23 +119,65 @@ function App() {
         open={open}
         setOpen={setOpen}
         handleReset={handleReset}
+        openNot={openNot}
+        setOpenNot={setOpenNot}
       />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home showSignupPage={showSignupPage} />} />
         <Route
           path="/createStudent"
           element={
-            <CreateStudentAccount
-              studentsData={studentsData}
-              setStudentsData={setStudentsData}
-              handleSubmit={handleSubmit}
-            />
+            isUserLoggedIn ? (
+              // المستخدم قام بتسجيل الدخول
+              <Navigate to="/" /> // إذا تم إنشاء الحساب بنجاح، قم بتوجيه المستخدم إلى الصفحة الرئيسية
+            ) : (
+              // المستخدم لم يقم بتسجيل الدخول
+              <CreateStudentAccount
+                studentsData={studentsData}
+                setStudentsData={setStudentsData}
+                handleSubmit={handleSubmit}
+              />
+            )
           }
         />
         <Route path="/createAccount" element={<CreateAccount />} />
         <Route path="/firstGrade" element={<FirstGrade />} />
         <Route path="/secondGrade" element={<SecondGrade />} />
+        <Route path="/secondGradeliterary" element={<SecondGradeliterary />} />
+        <Route path="/thirdGradeLiterary" element={<ThirdGradeLiterary />} />
+        <Route
+          path="/thirdGradeMathematics"
+          element={<ThirdGradeMathematics />}
+        />
+        <Route path="/thirdGradeScience" element={<ThirdGradeScience />} />
+
+        <Route path="/profile" element={<Profail />}>
+          <Route
+            index
+            element={
+              <Myprofaile
+                name={studentsData.fullName}
+                email={studentsData.email}
+                phoneNumber={studentsData.phoneNumber}
+              />
+            }
+          />
+          <Route
+            path="myprofaile"
+            element={
+              <Myprofaile
+                name={studentsData.fullName}
+                email={studentsData.email}
+                phoneNumber={studentsData.phoneNumber}
+              />
+            }
+          />
+          <Route path="mycourses" element={<Mycourses />} />
+          <Route path="views" element={<View />} />
+        </Route>
       </Routes>
+      <Footer />
+      <ScrollToTop />
     </div>
   );
 }

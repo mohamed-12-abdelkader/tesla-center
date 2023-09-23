@@ -1,7 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
 import ScrollToTop from "../Scroll/ScrollTop";
-const FirstGrade = () => {
+const ThirdGradeScience = () => {
   return (
     <>
       <div
@@ -13,11 +12,11 @@ const FirstGrade = () => {
         }}
       >
         {" "}
-        <h5> الصف الاول الثانوى ..... </h5>
+        <h5> الصف الثالث الثانوى علوم ..... </h5>
       </div>
       <ScrollToTop />
     </>
   );
 };
 
-export default FirstGrade;
+export default ThirdGradeScience;
