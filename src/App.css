@@ -133,5 +133,13 @@ input label {
 }
 
 .link:hover {
-  background-color: #ccc;
+  background-color: #e8e8e8;
+}
+
+a {
+  width: 100%;
+}
+
+.classes-card {
+  transform: scale(1.1);
 }

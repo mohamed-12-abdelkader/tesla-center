@@ -1,24 +1,23 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { teachersData } from "./TeachersData"; // استيراد المصفوفة
 
-function TeacherDetail() {
+function TeacherDetail({ teachers }) {
   const { id } = useParams();
-  const teacher = teachersData.find((t) => t.id === Number(id));
+
+  const flattenedTeachers = Object.values(teachers).flat();
+  const teacher = flattenedTeachers.find((t) => t.id.toString() === id);
 
   if (!teacher) {
     return <div>المدرس غير موجود</div>;
   }
 
+  const { name, img } = teacher;
+
   return (
     <div>
-      <h2>{teacher.name}</h2>
-      <h3>الفيديوهات:</h3>
-      <ul>
-        {teacher.videos.map((video, index) => (
-          <li key={index}>{video}</li>
-        ))}
-      </ul>
+      <h2>{name}</h2>
+      <img src={img} alt={name} />
+      {/* يمكنك إضافة مزيد من المعلومات حول المدرس هنا */}
     </div>
   );
 }

@@ -1,9 +1,10 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { classes } from "../classes/Classes";
+import toast from "react-hot-toast";
+
 const CreateStudentAccount = ({
   studentsData,
   setStudentsData,
@@ -27,25 +28,25 @@ const CreateStudentAccount = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: "80px",
       }}
     >
       <div
         style={{
           width: "500px",
-
           borderRadius: "10px",
-          boxShadow: " 0 0 10px rgba(0, 0, 0, 0.3)",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
         }}
       >
         <h2 style={{ margin: "20px 0", textAlign: "center" }}>
           إنشاء حساب جديد
         </h2>
         <form onSubmit={handleSubmit} style={{ width: "90%", margin: "auto" }}>
-          {/* حقل الباسورد */}
+          {/* حقل الاسم الثلاثي */}
           <div className="form">
             <TextField
               id="filled-basic"
-              label="الاسم ثلاثى"
+              label="الاسم الثلاثي"
               variant="filled"
               type="text"
               name="fullName"
@@ -53,10 +54,11 @@ const CreateStudentAccount = ({
               onChange={handleInputChange}
             />
           </div>
+          {/* حقل البريد الإلكتروني */}
           <div className="form">
             <TextField
               id="filled-basic"
-              label="البريد الالكترونى "
+              label="البريد الإلكتروني"
               variant="filled"
               type="email"
               name="email"
@@ -64,6 +66,7 @@ const CreateStudentAccount = ({
               onChange={handleInputChange}
             />
           </div>
+          {/* حقل كلمة المرور */}
           <div className="form">
             <TextField
               id="filled-basic"
@@ -79,7 +82,7 @@ const CreateStudentAccount = ({
           <div className="form">
             <TextField
               id="filled-basic"
-              label="تاكيد كلمة المرور"
+              label="تأكيد كلمة المرور"
               variant="filled"
               type={showPassword ? "text" : "password"}
               name="confirmPassword"
@@ -101,29 +104,26 @@ const CreateStudentAccount = ({
               inputMode="numeric"
             />
           </div>
-          {/* باقي النموذج */}
+          {/* حقل الصف الدراسي */}
           <div className="form">
             <TextField
               id="filled-select-currency"
               select
-              label="الصف الدراسى "
-              defaultValue="EUR"
+              label="الصف الدراسي"
+              defaultValue="First"
               variant="filled"
               name="selectedClass"
               value={studentsData.selectedClass}
               onChange={handleInputChange}
             >
-              <MenuItem value="First"> الأول الثانوى</MenuItem>
-              <MenuItem value="Second"> الصف الثانى الثانوى علمى </MenuItem>
-              <MenuItem value="Second-literay">
-                {" "}
-                الصف الثانى الثانوى ادبى{" "}
-              </MenuItem>
-              <MenuItem value="Third-literay">الثالث الثانوى ادبى</MenuItem>
-              <MenuItem value="Third-sciencee"> الثالث الثانوى علوم</MenuItem>
-              <MenuItem value="Third-math"> الثالث الثانوى رياضة </MenuItem>
+              {classes.map((classe) => (
+                <MenuItem key={classe.id} value={classe.title}>
+                  {classe.title}
+                </MenuItem>
+              ))}
             </TextField>
           </div>
+          {/* زر إنشاء الحساب */}
           <div style={{ margin: "20px 0" }}>
             <Button block type="submit" onClick={handleSubmit}>
               إنشاء حساب

@@ -1,3 +1,4 @@
+import { YouTube } from "@mui/icons-material";
 import React from "react";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
 const Footer = () => {
@@ -25,16 +26,16 @@ const Footer = () => {
             marginTop: "30px",
           }}
         >
-          <a>
-            <FaFacebook
-              style={{ margin: "10px", fontSize: "30px", color: "white" }}
-            />
-          </a>
-          <a>
-            <FaYoutube
-              style={{ margin: "10px", fontSize: "30px", color: "red" }}
-            />
-          </a>
+          <div>
+            <a>
+              <FaFacebook
+                style={{ fontSize: "30px", color: "white", margin: "10px" }}
+              />
+              <YouTube
+                style={{ fontSize: "30px", color: "red", margin: "10px" }}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>

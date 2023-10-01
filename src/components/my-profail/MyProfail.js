@@ -4,9 +4,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import AlternateEmailTwoToneIcon from "@mui/icons-material/AlternateEmailTwoTone";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import ScrollToTop from "../Scroll/ScrollTop";
-export default function Myprofaile(props) {
-  const { name, phoneNumber, email } = props;
-
+export default function Myprofaile({ name, phoneNumber, email }) {
   return (
     <>
       <Container style={{ direction: "rtl" }}>

@@ -48,7 +48,9 @@ function Navigationbar({
             </div>
           ) : (
             <Form className="d-flex">
-              <Button variant="outline-success m-2">تسجيل الدخول</Button>
+              <Button style={{ width: "250px" }} variant="outline-success m-2">
+                تسجيل الدخول
+              </Button>
               <Link to="/createAccount">
                 <Button variant="outline-success m-2">انشاء حساب</Button>
               </Link>
@@ -98,7 +100,11 @@ function Navigationbar({
                 <Link
                   className="link"
                   to="/profile/myprofaile"
-                  style={{ textDecoration: "none", display: "flex" }}
+                  style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    width: "100%",
+                  }}
                 >
                   <AccountCircleIcon />
                   <h5 style={{ color: "rgb(72, 68, 68)" }}>حسابى </h5>
