@@ -7,7 +7,7 @@ import ScrollToTop from "../Scroll/ScrollTop";
 import { Button } from "../ui";
 import TeacherDetail from "../teachers/TeacherDetail"; // استيراد المكون الجديد
 
-function ClassDetail({ classes, setClasses }) {
+const ClassDetail = ({ classes, setClasses }) => {
   const { classId } = useParams();
   const currentClass = classes.find(
     (item) => item.title.toLowerCase().replace(/\s+/g, "-") === classId
@@ -86,18 +86,22 @@ function ClassDetail({ classes, setClasses }) {
 
   const handleDeleteTeacher = () => {
     if (teacherToDelete) {
-      const { subject, id } = teacherToDelete;
+      const subjectTeachers = teachers[teacherToDelete.subject];
 
-      const updatedTeachers = {
-        ...teachers,
-        [subject]: teachers[subject].filter((teacher) => teacher.id !== id),
-      };
+      if (subjectTeachers) {
+        const updatedTeachers = {
+          ...teachers,
+          [teacherToDelete.subject]: subjectTeachers.filter(
+            (teacher) => teacher.id !== teacherToDelete.id
+          ),
+        };
 
-      setClasses((prevClasses) =>
-        prevClasses.map((c) =>
-          c.title === title ? { ...c, teachers: updatedTeachers } : c
-        )
-      );
+        setClasses((prevClasses) =>
+          prevClasses.map((c) =>
+            c.title === title ? { ...c, teachers: updatedTeachers } : c
+          )
+        );
+      }
 
       setTeacherToDelete(null);
     }
@@ -135,7 +139,7 @@ function ClassDetail({ classes, setClasses }) {
                           alt={teacher.name}
                         />
                         <Card.Body>
-                          <Link to={`/teacher/${subject}-${teacher.id}`}>
+                          <Link to={`/teacher/${teacher.id}`}>
                             <Button block variant="primary">
                               {teacher.name}
                             </Button>
@@ -145,7 +149,11 @@ function ClassDetail({ classes, setClasses }) {
                             block
                             variant="danger"
                             onClick={() =>
-                              setTeacherToDelete({ subject, id: teacher.id })
+                              setTeacherToDelete({
+                                subject,
+                                id: teacher.id,
+                                name: teacher.name,
+                              })
                             }
                           >
                             حذف المدرس
@@ -172,7 +180,7 @@ function ClassDetail({ classes, setClasses }) {
 
       {selectedTeacher && (
         <TeacherDetail
-          teachers={{ [selectedTeacher.subject]: [selectedTeacher] }}
+          teachers={currentClass.teachers}
           teacherId={selectedTeacher.id}
         />
       )}
@@ -233,7 +241,10 @@ function ClassDetail({ classes, setClasses }) {
         <Modal.Header closeButton>
           <Modal.Title>حذف المدرس</Modal.Title>
         </Modal.Header>
-        <Modal.Body>هل أنت متأكد من رغبتك في حذف المدرس؟</Modal.Body>
+        <Modal.Body>
+          <p>هل أنت متأكد من رغبتك في حذف المدرس؟</p>
+          <p>اسم المدرس: {teacherToDelete?.name}</p>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setTeacherToDelete(null)}>
             إلغاء
@@ -247,6 +258,6 @@ function ClassDetail({ classes, setClasses }) {
       <ScrollToTop />
     </div>
   );
-}
+};
 
 export default ClassDetail;

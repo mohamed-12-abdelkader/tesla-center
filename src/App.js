@@ -130,9 +130,14 @@ function App() {
         />
         <Route
           path="/teacher/:id"
-          element={<TeacherDetail teachers={classesData[0].teachers} />}
+          element={
+            <TeacherDetail
+              allTeachers={classesData
+                .map((classItem) => Object.values(classItem.teachers).flat())
+                .flat()}
+            />
+          }
         />
-
         <Route path="/profile" element={<Profail />}>
           <Route
             index
